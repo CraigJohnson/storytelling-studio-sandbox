@@ -25,9 +25,9 @@ echo "Deploying to $BUCKET ..."
 CDN_AUTH=$(echo $CDN_AUTH | base64 -D)
 USAT_AUTH=$(echo $USAT_AUTH | base64 -D)
 
-CDN_SPACE="gs://usat-storytelling/storytelling-studio-apps/$BUCKET"
-PUBLIC_PATH="https://www.gannett-cdn.com/usat-storytelling/storytelling-studio-apps/$BUCKET"
-CDN_PATH="https://$CDN_AUTH@www.gannett-cdn.com/usat-storytelling/storytelling-studio-apps/$BUCKET"
+CDN_SPACE="gs://usat-storytelling/testing/$BUCKET"
+PUBLIC_PATH="https://www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
+CDN_PATH="https://$CDN_AUTH@www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
 DEV_DOMAIN="dev-uw.usatoday.com"
 
 PROJECT_SLUG="$(basename $(pwd))"

@@ -1,7 +1,7 @@
 /* link utilities */
 
 const CDN_ROOT =
-  "https://www.gannett-cdn.com/usat-storytelling/storytelling-studio-apps";
+  "https://www.gannett-cdn.com/usat-storytelling/testing";
 const GIT_BRANCH = process.env.GIT_BRANCH || "dev";
 const PROJECT_SLUG = process.env.PROJECT_SLUG;
 const DEFAULT_ASSET_PATH = `${CDN_ROOT}/${GIT_BRANCH}/${PROJECT_SLUG}/`;

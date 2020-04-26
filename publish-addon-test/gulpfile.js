@@ -3,6 +3,7 @@ const path = require("path");
 
 const Gootenberg = require("gootenberg");
 const sander = require("sander");
+const ssr = require("./ssr.js");
 
 // the directory we're in is our project slug, always
 // if you need a different project URL, use UW config
@@ -17,7 +18,7 @@ const STATIC_DIR = "./src/static";
 
 const GIT_BRANCH = process.env.GIT_BRANCH || "dev";
 const CDN_ROOT =
-  "https://www.gannett-cdn.com/usat-storytelling/storytelling-studio-apps";
+  "https://www.gannett-cdn.com/usat-storytelling/testing";
 const PROJECT_PATH = `${CDN_ROOT}/${GIT_BRANCH}/${PROJECT_SLUG}`;
 
 module.exports = {
@@ -25,6 +26,7 @@ module.exports = {
   auth,
   data,
   embed,
+  uw,
 };
 
 async function check() {
@@ -85,18 +87,12 @@ async function embed() {
 }
 
 async function uw() {
-  await new Promise(resolve => {
-    setTimeout(resolve, 500);
-  });
-  console.log("uw");
-
-  // const uw = await ssr.render();
-
-  // return sander.writeFile(
-  //   "./public/uw",
-  //   `${PROJECT_SLUG}.json`,
-  //   JSON.stringify(uw, null, 2)
-  // );
+  const uw = await ssr.render();
+  return sander.writeFile(
+    "./public/uw",
+    `${PROJECT_SLUG}.json`,
+    JSON.stringify(uw, null, 2)
+  );
 }
 
 // Takes a sheet from Goot and returns an object of k/v pairs

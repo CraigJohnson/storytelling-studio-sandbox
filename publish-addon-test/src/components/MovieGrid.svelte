@@ -1,13 +1,12 @@
 <script>
   import { onMount } from "svelte";
   import { base } from "../utils/links.js";
+  import { movies } from "../store";
 
-  export let movies;
-
-  $: trilogies = ["Original", "Prequel", "Sequel", "Standalone"].filter(t => movies.find(m => m.trilogy == t));
+  $: trilogies = ["Original", "Prequel", "Sequel", "Standalone"].filter(t => $movies.find(m => m.trilogy == t));
 
   function getTrilogy(trilogy) {
-    return movies.filter(f => f.trilogy == trilogy).sort((a, b) => a.year - b.year);
+    return $movies.filter(f => f.trilogy == trilogy).sort((a, b) => a.year - b.year);
   }
 
   function moviePoster(filename) {
@@ -15,7 +14,7 @@
   }
 
   onMount(() => {
-    console.log(movies);
+    console.log($movies);
   })
 </script>
 
