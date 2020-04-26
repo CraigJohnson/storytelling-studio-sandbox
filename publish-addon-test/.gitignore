@@ -1,6 +1,8 @@
 .DS_Store
+.env
 node_modules
 public/bundle.*
 public/embed.html
-
-.env
+public/images
+public/uw
+public/**/*.json

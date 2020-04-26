@@ -18,19 +18,26 @@
     "rollup-plugin-svelte": "^5.2.1",
     "rollup-plugin-terser": "^4.0.4",
     "sander": "^0.6.0",
+    "serialize-javascript": ">=2.1.1",
     "svelte": "^3.20.1"
   },
   "dependencies": {
     "sirv-cli": "^0.4.5"
   },
   "scripts": {
-    "autobuild": "rollup -c -w",
-    "build": "rollup -c",
+    "autobuild": "npm run static && rollup -c -w",
+    "rollup": "rollup -c",
+    "build": "run-p static rollup uw",
     "caddy": "caddy",
+    "data": "gulp data",
+    "deploy:dev": "GIT_BRANCH=dev sh ./deploy.sh",
+    "deploy:prod": "GIT_BRANCH=master sh ./deploy.sh --production",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public --single",
     "start:dev": "sirv public --single --dev",
-    "start:embed": "run-p start:dev autobuild caddy"
+    "start:embed": "run-p start:dev autobuild caddy",
+    "static": "cp -rf src/static/* public/",
+    "uw": "gulp uw"
   },
   "browserslist": "> 0.25%, not dead"
 }

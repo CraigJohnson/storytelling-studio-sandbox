@@ -8,9 +8,12 @@ const sander = require("sander");
 // if you need a different project URL, use UW config
 const PROJECT_SLUG = path.basename(process.cwd());
 
+const SPREADSHEET_KEY = "1ObKsthZXGZpdrrNns7rf8_6OqvAv9tDbr_0J5zIjrao";
+
 const REQUIRED_ENVS = ["GAPI_CLIENT_EMAIL", "GAPI_PRIVATE_KEY"];
 
 const OUTPUT_DIR = "./src/content";
+const STATIC_DIR = "./src/static";
 
 const GIT_BRANCH = process.env.GIT_BRANCH || "dev";
 const CDN_ROOT =
@@ -49,7 +52,19 @@ async function data() {
 
   // fetch data here
   const goot = await auth();
-  console.log("Go get some data.");
+
+  const table = await goot.parse.table(SPREADSHEET_KEY);
+  const top = kv(table.top);
+  top.dateModified = new Date().toJSON();
+
+  return Promise.all([
+    sander.writeFile(STATIC_DIR, "films.json", JSON.stringify(table.films, null, 2)),
+    sander.writeFile(
+      OUTPUT_DIR,
+      "data.json",
+      JSON.stringify(top, null, 2),
+    ),
+  ]);
 }
 
 /*
@@ -67,4 +82,30 @@ async function embed() {
 `;
 
   return sander.writeFile("./public", "embed.html", html);
+}
+
+async function uw() {
+  await new Promise(resolve => {
+    setTimeout(resolve, 500);
+  });
+  console.log("uw");
+
+  // const uw = await ssr.render();
+
+  // return sander.writeFile(
+  //   "./public/uw",
+  //   `${PROJECT_SLUG}.json`,
+  //   JSON.stringify(uw, null, 2)
+  // );
+}
+
+// Takes a sheet from Goot and returns an object of k/v pairs
+// Requires columns of "key" and "value"
+function kv(obj) {
+  return obj.reduce((m, row) => {
+    // This, by default, will only pick up the "key" and "value" columns.
+    // Anything else, like a "notes" column, will be ignored.
+    m[row.key] = row.value;
+    return m;
+  }, {});
 }
