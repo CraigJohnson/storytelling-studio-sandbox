@@ -22,7 +22,7 @@ done
 
 echo "Deploying to $BUCKET ..."
 
-CDN_AUTH=$(echo $CDN_AUTH | base64 -D)
+CDN_AUTH=$(echo $CDN_AUTH | base64 --decode)
 
 CDN_SPACE="gs://usat-storytelling/testing/$BUCKET"
 PUBLIC_PATH="https://www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
