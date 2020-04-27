@@ -34,6 +34,13 @@ PROJECT_FOLDER="./public"
 
 PUBLIC_URL="$PUBLIC_PATH/$PROJECT_SLUG/index.html"
 
+echo "Variables:"
+echo $PUBLIC_PATH
+echo $CDN_AUTH
+echo $CDN_PATH
+echo $PROJECT_SLUG
+echo $PUBLIC_URL
+
 npm run build
 
 gsutil -m rsync -r $PROJECT_FOLDER "$CDN_SPACE/$PROJECT_SLUG"
