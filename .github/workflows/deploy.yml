@@ -38,6 +38,9 @@ jobs:
       with:
         node-version: '12.x'
 
+    - name: Install npm packages
+      run: npm install
+
     # Run deploy command with required env variables for Gootenberg and gsutil
     - name: Run deploy script
       uses: actions-hub/gcloud@master
