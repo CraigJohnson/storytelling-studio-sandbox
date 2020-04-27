@@ -48,7 +48,9 @@ jobs:
     #    }
     #  }
 
+    - name: Install packages
+      run: npm install
 
     # Run shell script
     - name: Run deploy script
-      run: sh ./${{github.event.client_payload.project}}/test.sh
+      run: npm run deploy:dev
