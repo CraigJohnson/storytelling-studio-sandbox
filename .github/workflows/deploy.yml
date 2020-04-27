@@ -1,10 +1,18 @@
-# First attempt at an action that can trigger deploy of an individual app in the repo,
-# a la storytelling-studios-apps
+# Storytelling Studio Apps deploy action
+#
+# S2 apps use Google docs and sheets to supply the data they consume. Updating that data
+# has meant getting a developer to run a package.json script to save the data to the repo, 
+# then either run a bash script to deploy the changes to the CDN or go through normal GitHub 
+# pull request workflow to trigger an automated deployment.
+#
+# There is a want to cut the developer out of the process so that an editor can updata data
+# in the Google doc, then select an action from the "Adds-ons" menu to trigger a deployment 
+# directly. This action, combined with an add-on script, does just that.
 
 name: Cloud Function Deploy
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# Action triggered on repository_dispatch event, limited to deploy-project event
+# https://help.github.com/en/actions/reference/events-that-trigger-workflows#external-events-repository_dispatch
 on:
   repository_dispatch:
     types: [deploy-project]
@@ -21,12 +29,19 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+    # repository_dispatch event triggered via the GitHub API:
+    # https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
+    # POST /repos/:owner/:repo/dispatches
+    #  Input
+    #  {
+    #    "event_type": "deploy-project",
+    #    "client_payload": {
+    #      "project": "name-of-s2-apps-project"
+    #    }
+    #  }
 
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        echo This should be the targeted project:
+        echo ${{github.event.client_payload.project}}
