@@ -10,8 +10,10 @@
 # directly. This action, combined with an add-on script, does just that.
 
 name: Cloud Function Deploy
+author: Craig Johnson
+description: Install and deploy a project in reponse to a "repository_dispatch" event.
 
-# Action triggered on repository_dispatch event, limited to deploy-project event
+# Workflow triggered on repository_dispatch event, limited to deploy-project event
 # https://help.github.com/en/actions/reference/events-that-trigger-workflows#external-events-repository_dispatch
 on:
   repository_dispatch:
@@ -19,15 +21,23 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "deploy_project"
+  deploy_project:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Use Node 12
+    - name: Set Node.js version
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
 
     # repository_dispatch event triggered via the GitHub API:
     # https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
@@ -40,8 +50,12 @@ jobs:
     #    }
     #  }
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
+    # cd into project directory
+    - name: Switch to project directory
       run: |
-        echo This should be the targeted project:
-        echo ${{github.event.client_payload.project}}
+        cd ${{github.event.client_payload.project}}
+        pwd
+
+    # Run shell script
+    - name: Run deploy script
+      run: sh ./test.sh
