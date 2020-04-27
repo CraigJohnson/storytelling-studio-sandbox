@@ -51,4 +51,4 @@ jobs:
 
     # Run shell script
     - name: Run deploy script
-      run: echo ./${{github.event.client_payload.project}}/test.sh
+      run: sh ./${{github.event.client_payload.project}}/test.sh
