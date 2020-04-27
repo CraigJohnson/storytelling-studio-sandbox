@@ -48,12 +48,7 @@ jobs:
     #    }
     #  }
 
-    # cd into project directory
-    - name: Switch to project directory
-      run: |
-        cd ${{github.event.client_payload.project}}
-        pwd
 
     # Run shell script
     - name: Run deploy script
-      run: sh ./test.sh
+      run: echo ./${{github.event.client_payload.project}}/test.sh
