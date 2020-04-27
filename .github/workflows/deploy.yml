@@ -10,8 +10,6 @@
 # directly. This action, combined with an add-on script, does just that.
 
 name: Cloud Function Deploy
-author: Craig Johnson
-description: Install and deploy a project in reponse to a "repository_dispatch" event.
 
 # Workflow triggered on repository_dispatch event, limited to deploy-project event
 # https://help.github.com/en/actions/reference/events-that-trigger-workflows#external-events-repository_dispatch
