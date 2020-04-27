@@ -38,12 +38,16 @@ jobs:
       with:
         node-version: '12.x'
 
-    - name: Run test.sh in working directory
-      run: sh ./test.sh
+    # Run deploy command with required env variables for Gootenberg and gsutil
+    - name: Run deploy script
+      uses: actions-hub/gcloud@master
+      env:
+        GAPI_CLIENT_EMAIL: ${{secrets.GAPI_CLIENT_EMAIL}}
+        GAPI_PRIVATE_KEY: ${{secrets.GAPI_PRIVATE_KEY}}
+        PROJECT_ID: ${{secrets.GCLOUD_PROJECT_ID}}
+        APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_APPLICATION_CREDENTIALS}}
+        CLI: gsutil
+      with:
+        args: npm run deploy:dev
 
-#    - name: Install packages
-#      run: npm install
-
-#    - name: Run deploy script
-#      run: npm run deploy:dev
 
