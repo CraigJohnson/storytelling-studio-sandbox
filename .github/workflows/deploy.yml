@@ -24,33 +24,26 @@ jobs:
     # The type of runner that the job will run on
     runs-on: macos-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{github.event.client_payload.project}}
 
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Use Node 12
     - name: Set Node.js version
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
 
-    # repository_dispatch event triggered via the GitHub API:
-    # https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
-    # POST /repos/:owner/:repo/dispatches
-    #  Input
-    #  {
-    #    "event_type": "deploy-project",
-    #    "client_payload": {
-    #      "project": "name-of-s2-apps-project"
-    #    }
-    #  }
+    - name: Run test.sh in working directory
+      run: sh ./test.sh
 
-    - name: Install packages
-      run: npm install
+#    - name: Install packages
+#      run: npm install
 
-    # Run shell script
-    - name: Run deploy script
-      run: npm run deploy:dev
+#    - name: Run deploy script
+#      run: npm run deploy:dev
+
