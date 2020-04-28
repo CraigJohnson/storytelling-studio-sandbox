@@ -32,6 +32,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ref: 'dev'
 
     - name: Set Node.js version
       uses: actions/setup-node@v1
