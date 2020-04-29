@@ -41,7 +41,7 @@ echo $CDN_PATH
 echo $PROJECT_SLUG
 echo $PUBLIC_URL
 
-npm run build
+GIT_BRANCH="$BUCKET" npm run build
 
 gsutil -m rsync -r $PROJECT_FOLDER "$CDN_SPACE/$PROJECT_SLUG"
 

@@ -33,7 +33,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: 'dev'
+        ref: ${{github.event.client_payload.branch}}
 
     - name: Set Node.js version
       uses: actions/setup-node@v1
@@ -55,4 +55,4 @@ jobs:
         GAPI_CLIENT_EMAIL: ${{ secrets.GAPI_CLIENT_EMAIL }}
         GAPI_PRIVATE_KEY: ${{ secrets.GAPI_PRIVATE_KEY }}
         CDN_AUTH: ${{ secrets.CDN_AUTH }}
-      run: npm run deploy:dev
+      run: ${{github.event.client_payload.command}}
