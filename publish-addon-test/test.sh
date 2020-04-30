@@ -20,22 +20,24 @@ while [ "$1" != "" ]; do
   esac
 done
 
-echo "Deploying to $BUCKET ..."
+# echo "Deploying to $BUCKET ..."
 
-CDN_AUTH=$(echo $CDN_AUTH | base64 --decode)
+# CDN_AUTH=$(echo $CDN_AUTH | base64 --decode)
 
-CDN_SPACE="gs://usat-storytelling/testing/$BUCKET"
-PUBLIC_PATH="https://www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
-CDN_PATH="https://$CDN_AUTH@www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
-DEV_DOMAIN="dev-uw.usatoday.com"
+# CDN_SPACE="gs://usat-storytelling/testing/$BUCKET"
+# PUBLIC_PATH="https://www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
+# CDN_PATH="https://$CDN_AUTH@www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
+# DEV_DOMAIN="dev-uw.usatoday.com"
 
-PROJECT_SLUG="$(basename $(pwd))"
-PROJECT_FOLDER="./public"
+# PROJECT_SLUG="$(basename $(pwd))"
+# PROJECT_FOLDER="./public"
 
-PUBLIC_URL="$PUBLIC_PATH/$PROJECT_SLUG/index.html"
+# PUBLIC_URL="$PUBLIC_PATH/$PROJECT_SLUG/index.html"
 
-echo "Variables:"
-echo $PUBLIC_PATH
-echo $CDN_PATH
-echo $PROJECT_SLUG
-echo $PUBLIC_URL
+# echo "Variables:"
+# echo $PUBLIC_PATH
+# echo $CDN_PATH
+# echo $PROJECT_SLUG
+# echo $PUBLIC_URL
+
+echo "Use the force, Luke!"
