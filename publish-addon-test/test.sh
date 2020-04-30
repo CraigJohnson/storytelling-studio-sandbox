@@ -20,9 +20,13 @@ while [ "$1" != "" ]; do
   esac
 done
 
-# echo "Deploying to $BUCKET ..."
+echo "Deploying to $BUCKET ..."
 
-# CDN_AUTH=$(echo $CDN_AUTH | base64 --decode)
+CDN_AUTH=Zm9vOmJhcgo=
+
+CDN_AUTH=$(echo $CDN_AUTH | base64 -D)
+
+echo $CDN_AUTH
 
 # CDN_SPACE="gs://usat-storytelling/testing/$BUCKET"
 # PUBLIC_PATH="https://www.gannett-cdn.com/usat-storytelling/testing/$BUCKET"
