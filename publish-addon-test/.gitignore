@@ -1,0 +1,8 @@
+.DS_Store
+.env
+node_modules
+public/bundle.*
+public/embed.html
+public/images
+public/uw
+public/**/*.json

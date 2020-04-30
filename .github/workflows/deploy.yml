@@ -1,0 +1,58 @@
+# Storytelling Studio Apps deploy action
+#
+# S2 apps use Google docs and sheets to supply the data they consume. Updating that data
+# has meant getting a developer to run a package.json script to save the data to the repo, 
+# then either run a bash script to deploy the changes to the CDN or go through normal GitHub 
+# pull request workflow to trigger an automated deployment.
+#
+# There is a want to cut the developer out of the process so that an editor can updata data
+# in the Google doc, then select an action from the "Adds-ons" menu to trigger a deployment 
+# directly. This action, combined with an add-on script, does just that.
+
+name: Deploy S2-Apps Project
+
+# Workflow triggered on repository_dispatch event, limited to deploy-project event
+# https://help.github.com/en/actions/reference/events-that-trigger-workflows#external-events-repository_dispatch
+on:
+  repository_dispatch:
+    types: [deploy-project]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "deploy_project"
+  deploy_project:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{github.event.client_payload.project}}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{github.event.client_payload.branch}}
+
+    - name: Set Node.js version
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Set up Google Cloud Platform
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Install npm packages
+      run: npm install
+
+    - name: Run deploy script
+      env:
+        GAPI_CLIENT_EMAIL: ${{ secrets.GAPI_CLIENT_EMAIL }}
+        GAPI_PRIVATE_KEY: ${{ secrets.GAPI_PRIVATE_KEY }}
+        CDN_AUTH: ${{ secrets.CDN_AUTH }}
+      run: ${{github.event.client_payload.command}}

@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Episode IV – A New Hope",
+    "year": "1977",
+    "trilogy": "Original",
+    "poster": "episode-IV.jpg"
+  },
+  {
+    "title": "Episode V – The Empire Strikes Back",
+    "year": "1980",
+    "trilogy": "Original",
+    "poster": "episode-V.jpg"
+  },
+  {
+    "title": "Episode VI – Return of the Jedi",
+    "year": "1983",
+    "trilogy": "Original",
+    "poster": "episode-VI.jpg"
+  },
+  {
+    "title": "Episode I – The Phantom Menace",
+    "year": "1999",
+    "trilogy": "Prequel",
+    "poster": "episode-I.jpg"
+  },
+  {
+    "title": "Episode II – Attack of the Clones",
+    "year": "2002",
+    "trilogy": "Prequel",
+    "poster": "episode-II.jpg"
+  },
+  {
+    "title": "Episode III – Revenge of the Sith",
+    "year": "2005",
+    "trilogy": "Prequel",
+    "poster": "episode-III.jpg"
+  },
+  {
+    "title": "Episode VII – The Force Awakens",
+    "year": "2015",
+    "trilogy": "Sequel",
+    "poster": "episode-VII.jpg"
+  },
+  {
+    "title": "Episode VIII – The Last Jedi",
+    "year": "2017",
+    "trilogy": "Sequel",
+    "poster": "episode-VIII.jpg"
+  },
+  {
+    "title": "Episode IX – The Rise of Skywalker",
+    "year": "2019",
+    "trilogy": "Sequel",
+    "poster": "episode-IX.jpg"
+  }
+]
