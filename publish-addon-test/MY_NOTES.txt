@@ -1,8 +1,6 @@
 Publish/Deploy Project
 ———
 
-Personal access token 17eaae243944fb51b0aedd774b60afe2b937426a
-
 https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
 
 https://api.github.com/repos/:owner/:repo/dispatches
@@ -21,7 +19,7 @@ POST body
 curl -X POST \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/vnd.github.v3+json' \
-  -H 'Authorization: Bearer 17eaae243944fb51b0aedd774b60afe2b937426a' \
+  -H 'Authorization: Bearer PERSONAL_ACCESS_TOKEN' \
   -d '{"event_type":"deploy-project","client_payload": {"project":"publish-addon-test","branch":"dev","command":"npm run deploy:dev"}}' \
   https://api.github.com/repos/CraigJohnson/storytelling-studio-sandbox/dispatches
 
