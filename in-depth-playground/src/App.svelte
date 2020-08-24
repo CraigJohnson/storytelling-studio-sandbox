@@ -19,7 +19,5 @@ let links = [
 
 <div class="article-inner">
   <InDepthNav {links} on:select="{ ({detail:{component}}) => activeComponent = component }"></InDepthNav>
-  <section class="in-depth-content">
-    <svelte:component this={activeComponent}></svelte:component>
-  </section>
+  <svelte:component this={activeComponent}></svelte:component>
 </div>
