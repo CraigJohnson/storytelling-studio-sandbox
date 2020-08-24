@@ -5,7 +5,7 @@ export let links = [];
 
 const dispatch = createEventDispatcher();
 let activeIndex = 0;
-let open = true;
+let open = false;
 
 function select(evt) {
   activeIndex = evt.target.dataset.index;
