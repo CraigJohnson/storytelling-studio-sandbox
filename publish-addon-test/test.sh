@@ -22,8 +22,7 @@ done
 
 echo "Deploying to $BUCKET ..."
 
-CDN_AUTH=Zm9vOmJhcgo=
-
+# CDN_AUTH is stored in the repo under Settings > Secrets
 CDN_AUTH=$(echo $CDN_AUTH | base64 -D)
 
 echo $CDN_AUTH
