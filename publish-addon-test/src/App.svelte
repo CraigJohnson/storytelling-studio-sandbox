@@ -41,6 +41,9 @@ p {
   font-size: 16px;
   line-height: 1.35;
 }
+p.ital {
+  font-style: italic;
+}
 @media (min-width: 768px) {
   :global(article) {
     --article-horizontal-padding: 26vw;
@@ -50,5 +53,6 @@ p {
 
 <h1>{title}</h1>
 <p>{description}</p>
+<p class="ital"><strong>This is part of a publishing pipeline test</strong> utilizing Google spreadsheet Add-ons and GitHub actions. The document feeding this page can be found <a href="https://docs.google.com/spreadsheets/d/1ObKsthZXGZpdrrNns7rf8_6OqvAv9tDbr_0J5zIjrao/edit#gid=0" target="_blank">here</a>.</p>
 <MovieGrid />
 

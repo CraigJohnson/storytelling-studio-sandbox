@@ -7,14 +7,17 @@ https://api.github.com/repos/:owner/:repo/dispatches
 
 e.g. https://api.github.com/repos/CraigJohnson/storytelling-studio-sandbox/dispatches
 
-POST body
+// POST body for /dispatches request
 {
   "event_type": "deploy-project",
   "client_payload": {
     "project": "project-directory-name",
-    "branch": "dev"
+    "branch": "dev",
+    "command": "npm run deploy:dev"
   }
 }
+
+// For testing the GitHub action
 
 curl -X POST \
   -H 'Content-Type: application/json' \
