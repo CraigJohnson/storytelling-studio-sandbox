@@ -63,6 +63,10 @@ echo "PODCAST:" $PODCAST
 # Add AllUsers:R to the project folder
 # gsutil -m acl ch -u AllUsers:R  -r "$CDN_SPACE/$PROJECT_SLUG"
 
+
+echo "PURGING https://www.$PODCAST.com/podcasts/"
+# curl -X PURGE "https://$USAT_AUTH@www.usatoday.com/podcasts/"
+
 wait
 echo "Deployed:"
 echo $PUBLIC_URL
