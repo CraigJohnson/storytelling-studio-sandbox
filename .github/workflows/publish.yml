@@ -1,0 +1,84 @@
+# Update and publish an app to staging or production
+
+name: Publish podcast
+
+# Controls when the action will run.
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "Publish this podcast"
+        required: true
+      target:
+        description: "Preview or Production"
+        required: true
+        default: preprod
+  repository_dispatch:
+    types: [publish-podcast]
+
+env:
+  APP: ${{ github.event.client_payload.app || github.event.inputs.app }}
+  PODCAST: ${{ github.event.client_payload.podcast || github.event.inputs.podcast }}
+  TARGET: ${{ github.event.client_payload.target || github.event.inputs.TARGET }}
+  GIT_BRANCH: ${{ github.event.client_payload.target || github.event.inputs.TARGET }}
+  TEAM: storytelling-studio
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: folder exists
+        run: |-
+          if [ ! -d $APP]; then
+            echo "No app folder $APP";
+            exit 1;
+          fi
+
+  publish:
+    # The type of runner that the job will run on
+    runs-on: [ubuntu-latest]
+    needs: check
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      # install dependencies
+      - name: install
+        run: make -C $APP install
+
+      # update data from our Google Spreadsheet
+      - name: update
+        env:
+          GAPI_PRIVATE_KEY: ${{ secrets.GAPI_PRIVATE_KEY }}
+        run: make -C $APP update
+
+      # build
+      - name: build
+        run: make -C $APP build
+
+      # Publish to the dev-uw domain
+      # Suitable for previews
+      - name: publish:dev
+        run: make -C $APP deploy
+        if: ${{ env.TARGET == 'dev' }}
+
+      # gut check
+      - name: publish:preprod
+        run: make -C $APP preprod
+        if: ${{ env.TARGET == 'production' || env.TARGET == 'preprod' }}
+
+      # make it live
+      - name: publish:production
+        run: make -C $APP publish
+        if: ${{ env.TARGET == 'production' }}
