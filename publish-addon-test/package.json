@@ -29,6 +29,7 @@
   "scripts": {
     "autobuild": "npm run static && rollup -c -w",
     "rollup": "rollup -c",
+    "update": "echo 'Update data'",
     "build": "npm run data && run-p static rollup uw",
     "data": "gulp data",
     "deploy:dev": "GIT_BRANCH=dev sh ./deploy.sh",
