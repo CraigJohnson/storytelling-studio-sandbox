@@ -50,19 +50,14 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          ref: ${{github.event.client_payload.branch}}
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16'
+          node-version: "16"
 
       # install dependencies
-      - name: install
-        run: make -C $APP install
+      # - name: install
+        # run: make -C $APP install
 
       # update data from our Google Spreadsheet
       - name: update
