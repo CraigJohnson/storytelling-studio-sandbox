@@ -26,10 +26,10 @@ deploy:
 	$(ENV) ./deploy.sh
 
 preprod:
-	./deploy.sh --staging
+	$(ENV) ./deploy.sh --staging
 
 publish:
-	./deploy.sh --production
+	$(ENV) ./deploy.sh --production
 	
 hello:
-	echo ${PODCAST}
+	$(ENV) echo ${PODCAST}
