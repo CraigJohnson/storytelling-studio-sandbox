@@ -41,24 +41,27 @@ echo $CDN_PATH
 echo $PROJECT_SLUG
 echo $PUBLIC_URL
 
-GIT_BRANCH="$BUCKET" npm run build
+# this is what I'm testing
+echo "PODCAST:" $PODCAST
 
-gsutil -m rsync -r $PROJECT_FOLDER "$CDN_SPACE/$PROJECT_SLUG"
+# GIT_BRANCH="$BUCKET" npm run build
+
+# gsutil -m rsync -r $PROJECT_FOLDER "$CDN_SPACE/$PROJECT_SLUG"
 
 # sometimes we need a special index file on the cdn
-if [[ -f "$PROJECT_FOLDER/index.cdn.html" ]]; then
-	gsutil cp "$PROJECT_FOLDER/index.cdn.html" "$CDN_SPACE/$PROJECT_SLUG/index.html"
-fi
+# if [[ -f "$PROJECT_FOLDER/index.cdn.html" ]]; then
+	# gsutil cp "$PROJECT_FOLDER/index.cdn.html" "$CDN_SPACE/$PROJECT_SLUG/index.html"
+# fi
 
-for filename in $(cd $PROJECT_FOLDER && find *); do
+# for filename in $(cd $PROJECT_FOLDER && find *); do
 	#echo "$CDN_PATH/$PROJECT_SLUG/$filename"
-	curl -X PURGE "$CDN_PATH/$PROJECT_SLUG/$filename" &
-done
+	# curl -X PURGE "$CDN_PATH/$PROJECT_SLUG/$filename" &
+# done
 
-curl -X PURGE "$CDN_PATH/$PROJECT_SLUG/index.html" -m 10 &
+# curl -X PURGE "$CDN_PATH/$PROJECT_SLUG/index.html" -m 10 &
 
 # Add AllUsers:R to the project folder
-gsutil -m acl ch -u AllUsers:R  -r "$CDN_SPACE/$PROJECT_SLUG"
+# gsutil -m acl ch -u AllUsers:R  -r "$CDN_SPACE/$PROJECT_SLUG"
 
 wait
 echo "Deployed:"
