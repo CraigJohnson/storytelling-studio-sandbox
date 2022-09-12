@@ -7,12 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       app:
+        description: "Publish this project"
+        required: true
+      podcast:
         description: "Publish this podcast"
         required: true
       target:
         description: "Preview or Production"
         required: true
-        default: preprod
   repository_dispatch:
     types: [publish-podcast]
 
