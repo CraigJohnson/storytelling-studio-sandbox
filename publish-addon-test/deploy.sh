@@ -20,9 +20,9 @@ while [ "$1" != "" ]; do
 	esac
 done
 
-echo "Deploying to $BUCKET ..."
 
-"${PODCAST:?Need to set PODCAST non-empty}"
+# will exit if PODCAST not set
+echo "Deploying ${PODCAST:?Need to set PODCAST non-empty} podcast page to $BUCKET ..."
 
 CDN_AUTH=$(echo $CDN_AUTH | base64 --decode)
 
