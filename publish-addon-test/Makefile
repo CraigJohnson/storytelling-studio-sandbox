@@ -1,4 +1,4 @@
-PODCAST?=usatoday
+PODCAST?=
 
 ENV?=PODCAST=${PODCAST}
 
