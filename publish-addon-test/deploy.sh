@@ -22,7 +22,7 @@ done
 
 echo "Deploying to $BUCKET ..."
 
-"${DEST:?Need to set DEST non-empty}"
+"${PODCAST:?Need to set PODCAST non-empty}"
 
 CDN_AUTH=$(echo $CDN_AUTH | base64 --decode)
 
