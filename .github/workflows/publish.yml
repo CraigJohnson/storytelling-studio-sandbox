@@ -9,20 +9,20 @@ on:
       app:
         description: "Publish this project"
         required: true
-      podcast:
-        description: "Publish this podcast"
-        required: true
       target:
         description: "Preview or Production"
         required: true
+      podcast:
+        description: "Publish this podcast"
+        required: false
   repository_dispatch:
     types: [publish-podcast]
 
 env:
   APP: ${{ github.event.client_payload.app || github.event.inputs.app }}
-  PODCAST: ${{ github.event.client_payload.podcast || github.event.inputs.podcast }}
   TARGET: ${{ github.event.client_payload.target || github.event.inputs.TARGET }}
   GIT_BRANCH: ${{ github.event.client_payload.target || github.event.inputs.TARGET }}
+  PODCAST: ${{ github.event.client_payload.podcast || github.event.inputs.podcast }}
   TEAM: storytelling-studio
 
 defaults:
